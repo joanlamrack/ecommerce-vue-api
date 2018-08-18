@@ -4,10 +4,10 @@ let Schema = mongoose.Schema;
 
 const fields = {
 	name: String,
-	itemList: {
-		type: [Schema.Types.ObjectId],
+	itemlist: [{
+		type: Schema.Types.ObjectId,
 		ref: "item"
-	}
+	}]
 };
 
 let itemCategorySchema = new Schema(fields);

@@ -6,7 +6,8 @@ const fields = {
 	name: String,
 	price: Number,
 	stock: Number,
-	store: String
+	store: String,
+	imgurl: String
 };
 
 let itemSchema = new Schema(fields);

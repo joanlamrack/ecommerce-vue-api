@@ -1,5 +1,5 @@
 const itemCategoryModel = require("../models/itemCategoryModel.js");
-
+const mongoose = require("mongoose");
 /**
  * itemCategoryController.js
  *
@@ -11,21 +11,18 @@ module.exports = {
 	 */
 	list: (req, res) => {
 		itemCategoryModel
-			.populate("itemList")
-			.find(
-				req.query.where,
-				req.query.fields,
-				req.query.sort,
-				(err, itemCategorys) => {
-					if (err) {
-						return res.status(500).json({
-							message: "Error when getting itemCategory.",
-							error: err
-						});
-					}
-					return res.json(itemCategorys);
-				}
-			);
+			
+			.find({})
+			.populate("itemlist")
+			.then(itemCategorys => {
+				return res.status(200).json(itemCategorys);
+			})
+			.catch(err => {
+				res.status(500).json({
+					message: "Error when getting itemCategory.",
+					error: err
+				});
+			});
 	},
 
 	/**
@@ -34,7 +31,7 @@ module.exports = {
 	show: (req, res) => {
 		let id = req.params.id;
 		itemCategoryModel
-			.populate("itemList")
+			.populate("itemlist")
 			.findOne({ _id: id }, (err, itemCategory) => {
 				if (err) {
 					return res.status(500).json({
@@ -57,7 +54,7 @@ module.exports = {
 	create: (req, res) => {
 		let itemCategory = new itemCategoryModel({
 			name: req.body.name,
-			itemList: req.body.itemList
+			itemList: req.body.itemlist
 		});
 
 		itemCategory.save((err, itemCategory) => {

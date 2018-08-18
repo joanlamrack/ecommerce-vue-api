@@ -55,7 +55,8 @@ module.exports = {
 			name: req.body.name,
 			price: req.body.price,
 			stock: req.body.stock,
-			store: req.body.store
+			store: req.body.store,
+			imgurl: req.body.imgurl
 		});
 
 		item.save((err, item) => {
@@ -91,6 +92,7 @@ module.exports = {
 			item.price = req.body.price ? req.body.price : item.price;
 			item.stock = req.body.stock ? req.body.stock : item.stock;
 			item.store = req.body.store ? req.body.store : item.store;
+			item.imgurl = req.body.imgurl ? req.body.imgurl : item.imgurl;
 
 			item.save((err, item) => {
 				if (err) {

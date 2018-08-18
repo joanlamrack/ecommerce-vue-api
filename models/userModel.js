@@ -4,14 +4,14 @@ const fields = {
 	username: String,
 	password: String,
 	email: String,
-	cart: {
-		type: [Schema.Types.ObjectId],
+	cart: [{
+		type: Schema.Types.ObjectId,
 		ref: "item"
-	},
-	purchase: {
-		type: [Schema.Types.ObjectId],
+	}],
+	purchase: [{
+		type:Schema.Types.ObjectId,
 		ref: "item"
-	}
+	}]
 };
 
 let userSchema = new Schema(fields);
