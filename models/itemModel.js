@@ -6,10 +6,7 @@ const fields = {
 	name: String,
 	price: Number,
 	stock: Number,
-	store: {
-		type: Schema.Types.ObjectId,
-		ref: "store"
-	}
+	store: String
 };
 
 let itemSchema = new Schema(fields);

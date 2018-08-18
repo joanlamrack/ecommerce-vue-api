@@ -10,20 +10,22 @@ module.exports = {
 	 * itemCategoryController.list()
 	 */
 	list: (req, res) => {
-		itemCategoryModel.find(
-			req.query.where,
-			req.query.fields,
-			req.query.sort,
-			(err, itemCategorys) => {
-				if (err) {
-					return res.status(500).json({
-						message: "Error when getting itemCategory.",
-						error: err
-					});
+		itemCategoryModel
+			.populate("itemList")
+			.find(
+				req.query.where,
+				req.query.fields,
+				req.query.sort,
+				(err, itemCategorys) => {
+					if (err) {
+						return res.status(500).json({
+							message: "Error when getting itemCategory.",
+							error: err
+						});
+					}
+					return res.json(itemCategorys);
 				}
-				return res.json(itemCategorys);
-			}
-		);
+			);
 	},
 
 	/**
@@ -31,20 +33,22 @@ module.exports = {
 	 */
 	show: (req, res) => {
 		let id = req.params.id;
-		itemCategoryModel.findOne({ _id: id }, (err, itemCategory) => {
-			if (err) {
-				return res.status(500).json({
-					message: "Error when getting itemCategory.",
-					error: err
-				});
-			}
-			if (!itemCategory) {
-				return res.status(404).json({
-					message: "No such itemCategory"
-				});
-			}
-			return res.json(itemCategory);
-		});
+		itemCategoryModel
+			.populate("itemList")
+			.findOne({ _id: id }, (err, itemCategory) => {
+				if (err) {
+					return res.status(500).json({
+						message: "Error when getting itemCategory.",
+						error: err
+					});
+				}
+				if (!itemCategory) {
+					return res.status(404).json({
+						message: "No such itemCategory"
+					});
+				}
+				return res.json(itemCategory);
+			});
 	},
 
 	/**
