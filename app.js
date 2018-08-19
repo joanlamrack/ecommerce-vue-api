@@ -4,6 +4,7 @@ const app = express();
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const routes = require("./routes/index");
+const cors = require("cors");
 
 mongoose.connect(
 	`mongodb://${process.env.MONGODBUSER}:${process.env.MONGODBPASS}@${
@@ -17,6 +18,7 @@ db.once("open", function callback() {
 	console.log("Mongo DB connected!");
 });
 
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
