@@ -121,5 +121,28 @@ module.exports = {
 			}
 			return res.status(204).json();
 		});
+	},
+
+	login: (req, res) => {
+		userModel
+			.findOne({ email: req.body.email, password: req.body.password })
+			.then(userFound => {
+				if (userFound) {
+					res.status(200).json({
+						username: userFound.username,
+						cart: userFound.cart
+					});
+				} else {
+					res.status(400).json({
+						message: "Email or Password Wrong"
+					});
+				}
+			})
+			.catch(err => {
+				res.status(400).json({
+					message: err.message,
+					data: err
+				});
+			});
 	}
 };
